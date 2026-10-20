@@ -27,4 +27,14 @@ metadata review. Keep detailed internal build evidence in the private owner.
 
 Use latest links for discovery and version-specific links for each download
 transaction. Do not fetch a checksum using latest after selecting an archive.
-No cross-repository credential is stored or publication workflow run here.
+No cross-repository credential is stored here. A protected manual publisher verifies
+only this repository's draft assets against a committed version record and
+publishes the same bytes. It never builds or runs private product code. Its
+GitHub Release promotion is not a claim that this public repository built the
+private product. Private acceptance remains in the product owner.
+
+The publisher stays disabled until its version-tag protection and `binary-public`
+review Environment are accepted. A version record in `versions/vX.Y.Z.json`
+binds the three exact asset names, sizes and SHA256 values. The tag points to the
+reviewed public publisher/record snapshot, not a private source commit.
+Private runtime logs and acceptance receipts must not be attached publicly.
