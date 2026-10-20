@@ -6,9 +6,11 @@ product source or its history.
 
 ## Availability
 
-No current product binary has been published here yet. Download links below
-become available after the first accepted stable release. A development
-candidate or an older private release is not a public product installer.
+Hatter 0.10.0 is available for Linux x86_64 (GNU), tested on Ubuntu 24.04 with
+Node 22 and 24. The archive includes the CLI, owner processes, Console and
+portable setup. Node is installed separately. See the [setup guide](INSTALL.md)
+and each release's explicit validation scope; other platforms and live Registry
+synchronization are separate acceptance.
 
 ## Download
 
