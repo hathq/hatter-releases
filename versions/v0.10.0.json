@@ -1,0 +1,41 @@
+{
+  "schema": "hatter/public-release-assets/v1",
+  "version": "0.10.0",
+  "platform": "linux-x86_64-gnu",
+  "testedOperatingSystem": "Ubuntu 24.04",
+  "externalNodeMajors": [
+    22,
+    24
+  ],
+  "assets": {
+    "hatter-linux-x86_64.tar.gz": {
+      "size": 30094055,
+      "sha256": "9a2a4ba6f87d90dff39521d1bf8ba79880cb02efa1036752d896689a09b0a2c2"
+    },
+    "release-manifest.json": {
+      "size": 1930,
+      "sha256": "f150c95a0415f24bd7acf965b1fea480b6c7e854c037ce214a29f4e078c33e6e"
+    },
+    "SHA256SUMS": {
+      "size": 181,
+      "sha256": "654c035c86ac0c6ba3ef7d2c40cb561354af223907e33eefdcde2119d24e0a2a"
+    }
+  },
+  "validation": {
+    "portableSetup": true,
+    "isolatedProductBrowserAndCli": true,
+    "catalogCandidateCount": 8,
+    "modifiedCatalogRefused": true,
+    "childProcessesReaped": true,
+    "productionRegistryAccepted": false,
+    "semanticBootstrapAccepted": false,
+    "externalHostEffectsAccepted": false
+  },
+  "components": {
+    "privateProductSource": "f670bf10693e7db1261f8e38d2781dd1801bfe7e",
+    "privateConsoleSource": "00a7c6400e1b84bae51d4dc6f307187ca7a20e94",
+    "portableOwnerSource": "4bdf6bb6801e1f3a593ff200919cf87b2f7d68f9"
+  },
+  "licensing": "See archive original notices, corresponding covered-source archives and the expressly scoped binary-use terms; prior rights remain unchanged.",
+  "provenance": "This repository verifies/promotes accepted private-owner bytes; it does not claim to build the private product."
+}
