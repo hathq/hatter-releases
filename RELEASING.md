@@ -20,9 +20,11 @@ Assets for the initial Linux x86_64 target:
 - release-manifest.json
 - SHA256SUMS
 
-The manifest records the version, target, archive name/size/SHA256, public
-corresponding-source references, license locations and verifiable build
-provenance. Private identifiers or URLs are included only after explicit public
+The committed public version record binds the outer archive size/SHA256, tested
+platform/runtime, component source identities and exact acceptance scope. The
+product manifest binds inner component/protocol/license digests; corresponding
+source and license locations are recorded inside the archive. An archive cannot
+include its own final hash in its inner manifest. Private identifiers or URLs are included only after explicit public
 metadata review. Keep detailed internal build evidence in the private owner.
 
 Use latest links for discovery and version-specific links for each download
