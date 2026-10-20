@@ -1,0 +1,17 @@
+{
+  "name": "@hathq/hatter-release-verification",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.15.0 <25"
+  },
+  "scripts": {
+    "typecheck": "tsc --project tsconfig.json",
+    "test": "node --test scripts/*.test.mts"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "typescript": "7.0.2"
+  },
+  "license": "MIT"
+}

@@ -44,3 +44,6 @@ contracted separately. Upstream and third-party licenses retain their own scope.
 
 [Hatter product site](https://hatter.ihat.online/) ·
 [HAT discovery](https://ihat.online/)
+
+The verification scripts in this repository use MIT (see LICENSE). This does
+not change any binary component license or the scope of BINARY-TERMS.md.

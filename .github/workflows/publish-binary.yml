@@ -1,0 +1,39 @@
+name: Publish verified product assets
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: product-publication
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: vars.BINARY_PUBLISH_ENABLED == 'true' && startsWith(github.ref, 'refs/tags/v')
+    environment: binary-public
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version: '24.15.0'
+          package-manager-cache: false
+      - name: Validate and publish exactly the reviewed draft assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          [[ "$GITHUB_REF_NAME" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]
+          gh release view "$GITHUB_REF_NAME" --json isDraft,isPrerelease,tagName --repo "$GITHUB_REPOSITORY" > "$RUNNER_TEMP/release.json"
+          jq --exit-status --arg tag "$GITHUB_REF_NAME" '.isDraft == true and .isPrerelease == false and .tagName == $tag' "$RUNNER_TEMP/release.json"
+          mkdir "$RUNNER_TEMP/assets"
+          gh release download "$GITHUB_REF_NAME" --dir "$RUNNER_TEMP/assets" --repo "$GITHUB_REPOSITORY"
+          node scripts/verify-assets.mts "versions/$GITHUB_REF_NAME.json" "$RUNNER_TEMP/assets" "$GITHUB_REF_NAME"
+          gh release edit "$GITHUB_REF_NAME" --draft=false --latest=true --repo "$GITHUB_REPOSITORY"
+          gh release view "$GITHUB_REF_NAME" --json isDraft,tagName,url --repo "$GITHUB_REPOSITORY"
