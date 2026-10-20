@@ -36,6 +36,10 @@ in that release. Source rights are not conditional on paid support.
 Product source confidentiality does not revoke upstream or third-party rights.
 No repository-level license label overrides the terms included with a release.
 
+[Binary use terms](BINARY-TERMS.md): use is free, redistribution of the expressly
+identified HAT-owned portions requires separate permission, and support is
+contracted separately. Upstream and third-party licenses retain their own scope.
+
 ## Product information
 
 [Hatter product site](https://hatter.ihat.online/) ·
