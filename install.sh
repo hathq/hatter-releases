@@ -7,7 +7,7 @@ fail() { printf '%s\n' "$*" >&2; exit 1; }
 mode=${1:-install}
 [[ $# -le 1 && "$mode" =~ ^(install|--yes|--check|--help)$ ]] || fail 'Use --check, --yes or --help.'
 if [[ "$mode" == --help ]]; then
-  echo 'Hatter 0.10.0: Linux/WSL x86_64 GNU, existing Node 22/24, user-only install.'
+  echo 'Hatter 0.10.0: Linux/WSL x86_64 GNU, existing secure Node 22/24, user-only install.'
   echo '--check verifies download and setup without installing. --yes accepts the printed installation plan.'
   exit 0
 fi
@@ -21,8 +21,15 @@ for tool in curl tar sha256sum timeout realpath stat df mktemp flock; do command
 node=$(realpath -e -- "$node")
 [[ -f "$node" && -x "$node" && $((0$(stat -c %a -- "$node") & 022)) == 0 ]] || fail 'Unsafe Node executable.'
 [[ $(stat -c %u -- "$node") == 0 || $(stat -c %u -- "$node") == $(id -u) ]] || fail 'Untrusted Node owner.'
-major=$(timeout -k 2 5 "$node" -p 'process.versions.node.split(".")[0]')
-[[ "$major" == 22 || "$major" == 24 ]] || fail 'Node 22 or 24 is required.'
+# The same bound check is installed in the launcher; a major number is not a security floor.
+check_node_version() {
+  local observed major minor patch
+  observed=$(/usr/bin/timeout -k 2 5 "$1" --version) || return 1
+  [[ "$observed" =~ ^v(22|24)\.([0-9]{1,3})\.([0-9]{1,3})$ ]] || return 1
+  major=${BASH_REMATCH[1]}; minor=$((10#${BASH_REMATCH[2]})); patch=$((10#${BASH_REMATCH[3]}))
+  (( major == 22 && (minor > 23 || minor == 23 && patch >= 4) || major == 24 && (minor > 22 || minor == 22 && patch >= 1) ))
+}
+check_node_version "$node" || fail 'Use Node 22.23.4+ or 24.22.1+ from the supported release line.'
 [[ ${HOME:-} == /* && "$HOME" != / && "$HOME" != *$'\n'* ]] || fail 'An absolute HOME is required.'
 [[ $(realpath -e -- "$HOME") == "$HOME" ]] || fail 'HOME must be a canonical directory.'
 version=0.10.0
@@ -80,6 +87,8 @@ mv -- "$tmp/product" "$stage/product"
 {
   printf '#!/bin/bash\n# Hatter managed launcher; product version %s\nset -euo pipefail\nunset NODE_OPTIONS NODE_PATH ENV BASH_ENV LD_PRELOAD LD_LIBRARY_PATH\n' "$version"
   printf 'export HATTER_CONSOLE_NODE_EXECUTABLE=%q\n' "$node"
+  declare -f check_node_version
+  printf 'check_node_version "$HATTER_CONSOLE_NODE_EXECUTABLE" || { echo "Node security update required: 22.23.4+ or 24.22.1+." >&2; exit 1; }\n'
   printf 'export HATTER_CONSOLE_EXECUTABLE=%q\n' "$target/bin/hatter-console"
   printf 'exec %q "$@"\n' "$target/bin/hatter"
 } > "$stage/launcher"

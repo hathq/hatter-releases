@@ -67,6 +67,7 @@ test('installs the official archive in an isolated HOME; restart/version and dup
     assert.equal(result.status, 0, result.stderr + result.stdout)
     const launcher = join(directory, '.local/bin/hatter')
     assert.ok(existsSync(launcher))
+    assert.match(readFileSync(launcher,'utf8'), /check_node_version.*HATTER_CONSOLE_NODE_EXECUTABLE/)
     const version = spawnSync(launcher, ['--version'], { env: { ...process.env, PATH: `${dirname(process.execPath)}:${process.env.PATH}`, HOME: directory }, encoding: 'utf8', timeout: 15_000 })
     assert.equal(version.status, 0, version.stderr)
     assert.match(version.stdout, /0\.10\.0/)

@@ -7,7 +7,7 @@ pins the accepted v0.10.0 archive's exact size and SHA256 before extraction.
 See [the product installation page](https://hatter.ihat.online/download).
 
 Requirements: Linux/WSL x86_64 GNU (tested on Ubuntu 24.04), a trusted existing
-Node 22 or 24, Bash, curl and standard GNU utilities; at least 1 GiB free space.
+Node 22.23.4+ or 24.22.1+, Bash, curl and standard GNU utilities; at least 1 GiB free space.
 Node is not bundled or installed automatically. Windows native and macOS are
 not supported by this release. The installer checks the selected Node and the
 portable setup before activating anything. Installation does not start Hatter.
@@ -33,7 +33,7 @@ session. User state and OS-stored credentials are separate and retained.
 ## Manual portable setup
 
 The current archive supports Linux x86_64 (GNU), tested on Ubuntu 24.04.
-Use an existing Node 22 or 24 installation. Node, system services and shell
+Use an existing Node 22.23.4+ or 24.22.1+ installation. Node, system services and shell
 configuration are not installed or modified by this package.
 
 Choose a release once from the [release page](https://github.com/hathq/hatter-releases/releases/latest).
@@ -96,3 +96,9 @@ Do not replace user state as part of a binary update.
 Read `licenses/hatter-distribution/components.json` for exact license scope,
 original notices and the bundled corresponding source of MPL-covered components.
 Free use and separately contracted support do not replace third-party rights.
+
+## Node.js security updates
+
+The October 21, 2026 Node.js security release fixes DNS, TLS, HTTP, entropy-cache and Brotli vulnerabilities. Use a current supported patch release: at least 22.23.4 or 24.22.1. The installer and newly installed launcher check this floor before product execution; they do not download Node or silently switch release lines. Existing installations require their operator to update Node independently. Older immutable product archives are not rewritten by this installer update.
+
+Source: https://nodejs.org/en/blog/vulnerability/october-2026-security-releases
