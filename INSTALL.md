@@ -1,4 +1,36 @@
-# Portable setup
+# Install Hatter
+
+The product website presents a version-pinned copyable shell command, not a
+`curl | sh` pipeline. The command downloads this repository's `install.sh` from
+an exact source commit, verifies its published SHA256, then runs it. The script
+pins the accepted v0.10.0 archive's exact size and SHA256 before extraction.
+See [the product installation page](https://hatter.ihat.online/download).
+
+Requirements: Linux/WSL x86_64 GNU (tested on Ubuntu 24.04), a trusted existing
+Node 22 or 24, Bash, curl and standard GNU utilities; at least 1 GiB free space.
+Node is not bundled or installed automatically. Windows native and macOS are
+not supported by this release. The installer checks the selected Node and the
+portable setup before activating anything. Installation does not start Hatter.
+
+Review the downloaded script if desired. It prints the version, existing Node,
+product directory and launcher location and requires typing `install`.
+`bash install.sh --check` verifies the same archive/setup without installation;
+`--yes` explicitly accepts the printed plan for unattended installation.
+
+Files are placed under `~/.local/share/hatter/releases/0.10.0` and the launcher is
+`~/.local/bin/hatter`. Start using that absolute path, or `hatter` if your existing
+PATH already includes `~/.local/bin`. The installer does not edit shell files,
+register services, initialize user data, enroll credentials, grant permissions
+or enable Registry synchronization. Existing commands and installed versions
+are refused rather than replaced. Locks are held only for the installation.
+
+For this initial installer, an existing installation requires manual review;
+there is no automatic update, rollback or uninstall command. Keep a previously
+accepted portable directory for rollback. To remove this installation, remove
+only its launcher and exact product directory after stopping your own Hatter
+session. User state and OS-stored credentials are separate and retained.
+
+## Manual portable setup
 
 The current archive supports Linux x86_64 (GNU), tested on Ubuntu 24.04.
 Use an existing Node 22 or 24 installation. Node, system services and shell

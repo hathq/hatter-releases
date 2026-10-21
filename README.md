@@ -8,11 +8,17 @@ product source or its history.
 
 Hatter 0.10.0 is available for Linux x86_64 (GNU), tested on Ubuntu 24.04 with
 Node 22 and 24. The archive includes the CLI, owner processes, Console and
-portable setup. Node is installed separately. See the [setup guide](INSTALL.md)
+a version-bound shell installer. Node is installed separately. See the [setup guide](INSTALL.md)
 and each release's explicit validation scope; other platforms and live Registry
 synchronization are separate acceptance.
 
-## Download
+## Install
+
+Copy the verified installation command from the [product site](https://hatter.ihat.online/download).
+It displays the exact stable version and requirements. Review and confirm the
+local installation plan; no administrator privileges are used.
+
+## Manual downloads
 
 - [Latest stable release](https://github.com/hathq/hatter-releases/releases/latest)
 - [Linux x86_64 product archive](https://github.com/hathq/hatter-releases/releases/latest/download/hatter-linux-x86_64.tar.gz)
